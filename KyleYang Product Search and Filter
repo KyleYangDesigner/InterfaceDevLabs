@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>KyleYang Product Search and Filter</title>
+  </head>
+  <body>
+    <input type="text" id="search-input" name="search-input">
+    <ul id="product-list"></ul>
+    <script>
+      let products = [
+        "Blender",
+        "Can opener",
+        "Dish rack",
+        "Electric kettle",
+        "Frying pan",
+        "Grater",
+        "Microwave",
+        "Pot",
+        "Refrigerator",
+        "Toaster",
+      ];
+
+      function displayProducts(products) {
+        let productList = document.getElementById("product-list");
+        productList.innerHTML = "";
+
+        for (let i = 0; i < products.length; i++) {
+          let product = products[i];
+          productList.innerHTML += `<li>${product}</li>`;
+        }
+      }
+
+      function searchProducts(query) {
+        return products.filter((product) =>
+          product.toLowerCase().includes(query.toLowerCase())
+        );
+      }
+
+      let searchInput = document.getElementById("search-input");
+      searchInput.addEventListener("input", function () {
+        let filteredProducts = searchProducts(searchInput.value);
+        displayProducts(filteredProducts);
+      });
+
+      displayProducts(products);
+    </script>
+  </body>
+</html>
