@@ -1,48 +1,62 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>KyleYang Product Search and Filter</title>
+    <title>KyleYang Form Validation</title>
   </head>
   <body>
-    <input type="text" id="search-input" name="search-input">
-    <ul id="product-list"></ul>
+    <form>
+      <label for="username">Username:</label>
+      <input type="text" id="username" name="username"><br><br>
+      <label for="email">Email:</label>
+      <input type="text" id="email" name="email"><br><br>
+      <label for="password">Password:</label>
+      <input type="password" id="password" name="password"><br><br>
+      <input type="button" value="Submit" onclick="validateForm()">
+    </form>
     <script>
-      let products = [
-        "Blender",
-        "Can opener",
-        "Dish rack",
-        "Electric kettle",
-        "Frying pan",
-        "Grater",
-        "Microwave",
-        "Pot",
-        "Refrigerator",
-        "Toaster",
-      ];
-
-      function displayProducts(products) {
-        let productList = document.getElementById("product-list");
-        productList.innerHTML = "";
-
-        for (let i = 0; i < products.length; i++) {
-          let product = products[i];
-          productList.innerHTML += `<li>${product}</li>`;
+      function validateForm() {
+        // Get the values of the input fields
+        let username = document.getElementById("username").value;
+        let email = document.getElementById("email").value;
+        let password = document.getElementById("password").value;
+  
+        // Validate the username field
+        let usernameValid = false;
+        if (username === "") {
+          console.log("Username field is empty");
+        } else if (!/^[a-zA-Z0-9]+$/.test(username)) {
+          console.log("Username can only contain letters and numbers");
+        } else {
+          usernameValid = true;
+        }
+  
+        // Validate the email field
+        let emailValid = false;
+        if (email === "") {
+          console.log("Email field is empty");
+        } else if (!/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(email)) {
+          console.log("Email is invalid");
+        } else {
+          emailValid = true;
+        }
+  
+        // Validate the password field
+        let passwordValid = false;
+        if (password === "") {
+          console.log("Password field is empty");
+        } else if (password.length < 8) {
+          console.log("Password must be at least 8 characters long");
+        } else {
+          passwordValid = true;
+        }
+  
+        // Check if all input fields are valid
+        if (usernameValid && emailValid && passwordValid) {
+          console.log("Form submitted successfully");
+        } else {
+          console.log("Form submission failed");
         }
       }
-
-      function searchProducts(query) {
-        return products.filter((product) =>
-          product.toLowerCase().includes(query.toLowerCase())
-        );
-      }
-
-      let searchInput = document.getElementById("search-input");
-      searchInput.addEventListener("input", function () {
-        let filteredProducts = searchProducts(searchInput.value);
-        displayProducts(filteredProducts);
-      });
-
-      displayProducts(products);
     </script>
   </body>
 </html>
